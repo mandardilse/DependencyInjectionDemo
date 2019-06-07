@@ -12,4 +12,4 @@ Due to single responsibility principle, ServiceCollection class doesn't create o
 By creating single platform / instance of this class we can access the instance DI classes.
 
 * Create instance of your DI classes.
-var yourclassInstance = builder.GetService<yourclass>()
+var yourclassInstance = builder.GetService&lt;yourclass&gt;()
