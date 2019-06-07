@@ -1,7 +1,7 @@
 # DependencyInjectionDemo
 This project demostrate how dependency work in dotnet core application.
 
-####Steps
+#### Steps
 * Create ServiceCollection class object
 This class is responsible to create metadata container for all your dependency injected classes.
 It acts as bucket for all your DI classes.
