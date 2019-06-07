@@ -27,7 +27,6 @@ namespace DI
 			{
 				InstantiateClasses(builder);
 			});
-			//System.Console.WriteLine($"SingleTone Class Id: { builder.GetService<SingleToneClass>().GetHashCode().ToString() }");
 		}
 
 		static void InstantiateClasses(IServiceProvider builder)
