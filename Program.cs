@@ -14,10 +14,23 @@ namespace DI
 			//for demo purpose, used actual single tone class and create instance.
 			var singleInstance = SingleToneClass.Instance;
 			System.Console.WriteLine($"Main method SingleTone Class Id: {singleInstance.GetHashCode().ToString()}");
-
 			serviceCollection.AddSingleton<Configuration>();
 			serviceCollection.AddScoped<ScopeClass>();
 			serviceCollection.AddTransient<TransientClass>();
+			serviceCollection.AddScoped<IndianTaxation>();
+			serviceCollection.AddScoped<USTaxation>();
+			serviceCollection.AddScoped<Func<Location, ITaxCalculation>>(
+				Sp => key =>
+				{
+					switch (key)
+					{
+						case Location.India: return Sp.GetService<IndianTaxation>();
+						case Location.UnitedState: return Sp.GetService<USTaxation>();
+						default: return null;
+					}
+				}
+			);
+			serviceCollection.AddScoped<IncomeTax>();
 
 			//Step 2
 			IServiceProvider builder = serviceCollection.BuildServiceProvider();
@@ -27,6 +40,8 @@ namespace DI
 			{
 				InstantiateClasses(builder);
 			});
+			System.Console.WriteLine($"Indian Income Tax : {builder.GetService<IncomeTax>().CalculateIncomeTax(Location.India)}");
+			System.Console.WriteLine($"Us Income Tax : {builder.GetService<IncomeTax>().CalculateIncomeTax(Location.UnitedState)}");
 		}
 
 		static void InstantiateClasses(IServiceProvider builder)
