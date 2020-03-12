@@ -2,7 +2,7 @@ using System;
 
 namespace DI.entities
 {
-	public class IncomeTax
+	public class IncomeTax : IIncomeTax
 	{
 		private readonly Func<Location, ITaxCalculation> _accessor;
 

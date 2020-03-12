@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using DI.entities;
 using Microsoft.Extensions.DependencyInjection;
+
 //Use README instructions
 namespace DI
 {
@@ -17,20 +18,8 @@ namespace DI
 			serviceCollection.AddSingleton<Configuration>();
 			serviceCollection.AddScoped<ScopeClass>();
 			serviceCollection.AddTransient<TransientClass>();
-			serviceCollection.AddScoped<IndianTaxation>();
-			serviceCollection.AddScoped<USTaxation>();
-			serviceCollection.AddScoped<Func<Location, ITaxCalculation>>(
-				Sp => key =>
-				{
-					switch (key)
-					{
-						case Location.India: return Sp.GetService<IndianTaxation>();
-						case Location.UnitedState: return Sp.GetService<USTaxation>();
-						default: return null;
-					}
-				}
-			);
-			serviceCollection.AddScoped<IncomeTax>();
+
+			serviceCollection.AddEntitiesModule();
 
 			//Step 2
 			IServiceProvider builder = serviceCollection.BuildServiceProvider();
